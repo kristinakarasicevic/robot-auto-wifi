@@ -17,7 +17,9 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <Preferences.h>
+#include <ESPmDNS.h>
 #include "secrets.h"
+
 
 // ---------- Pinovi ----------
 const int L_IN1 = 4;   // leva strana: napred = HIGH
@@ -151,16 +153,16 @@ void setup() {
 
   // Ucitaj sacuvanu mrezu; ako je nema, koristi podrazumevanu
   prefs.begin("wifi", false);
-  curSsid = prefs.getString("ssid", DEF_SSID);
-  String pass = prefs.getString("pass", DEF_PASS);
+  curSsid = prefs.getString("ssid", WIFI_SSID);
+  String pass = prefs.getString("pass", WIFI_PASS);
 
   bool ok = connectWiFi(curSsid, pass, WIFI_CONNECT_MS);
   if (!ok) {
     // Sacuvana mreza ne radi -> vrati se na podrazumevanu
     Serial.println("Sacuvana mreza ne radi -> vracam na podrazumevanu.");
-    curSsid = DEF_SSID; pass = DEF_PASS;
-    prefs.putString("ssid", DEF_SSID);
-    prefs.putString("pass", DEF_PASS);
+    curSsid = WIFI_SSID; pass = WIFI_PASS;
+    prefs.putString("ssid", WIFI_SSID);
+    prefs.putString("pass", WIFI_PASS);
     ok = connectWiFi(curSsid, pass, WIFI_CONNECT_MS);
   }
 
