@@ -1,0 +1,24 @@
+# Osetljivi podaci
+secrets.h
+config.h
+wifi_credentials.h
+.env
+*.local
+
+# Arduino build
+build/
+*.hex
+*.bin
+*.elf
+
+# VS Code
+.vscode/
+.pio/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (ako web app koristi npm)
+node_modules/
+dist/

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Robot Auto — Kontrola</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ===== KOKPIT ===== -->
+  <div class="driver">
+
+    <div class="camview">
+      <img id="camImg" alt="">
+      <div class="camph" id="camPh">Unesi IP kamere (u „Podešavanja", ispod)</div>
+      <span class="camlive" id="camLive"><span class="dot"></span>uživo</span>
+      <span id="pill" class="pill"><span class="dot"></span><span id="pillTxt">nije povezan</span></span>
+    </div>
+
+    <div class="diststrip" id="telemetry">
+      <span class="dk">Prepreka</span>
+      <span class="dv"><b id="distNum">—</b><span class="du" id="distUnit">cm</span></span>
+      <div class="dgauge"><div class="dstop"></div><div class="dfill" id="gaugeFill"></div></div>
+      <span class="dblock" id="blockBanner">Kočim</span>
+    </div>
+
+    <div class="padwrap">
+      <div class="pad" id="pad">
+        <button class="dbtn up"    data-dir="F" disabled>▲<span class="lab">napred</span></button>
+        <button class="dbtn left"  data-dir="L" disabled>◀<span class="lab">levo</span></button>
+        <button class="dbtn stop"  data-dir="S" disabled>STOP</button>
+        <button class="dbtn right" data-dir="R" disabled>▶<span class="lab">desno</span></button>
+        <button class="dbtn down"  data-dir="B" disabled>▼<span class="lab">nazad</span></button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== PODESAVANJA ===== -->
+  <div class="wrap">
+    <div class="settitle">▾ Podešavanja i veza</div>
+
+    <details class="conn card" id="connCard" open>
+      <summary><h2>Veza</h2><span class="chev">▸</span></summary>
+      <div style="margin-top:14px">
+        <div class="field">
+          <label for="ip">IP adresa auta</label>
+          <input id="ip" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="npr. 192.168.43.51">
+          <span class="help">Auto je ispisuje na Serial Monitoru (115200) — red <code>Auto IP adresa: ...</code></span>
+        </div>
+        <div class="field">
+          <label for="camip">IP adrese kamere (ESP32-CAM)</label>
+          <input id="camip" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="npr. 192.168.43.52">
+          <span class="help">Kamera se pali sama čim uneseš IP. App traži stream na <code>http://IP:81/stream</code> (standardni CameraWebServer). Ako ti je putanja drugačija, javi.</span>
+        </div>
+        <div class="field">
+          <label for="ssid">WiFi mreža (SSID)</label>
+          <input id="ssid" autocomplete="off" spellcheck="false" placeholder="npr. V">
+        </div>
+        <div class="field">
+          <label for="pass">WiFi lozinka</label>
+          <input id="pass" type="password" autocomplete="off" spellcheck="false" placeholder="••••••••">
+        </div>
+        <button id="connectBtn" class="btn">Poveži se</button>
+
+        <div class="sep"></div>
+        <button id="saveWifiBtn" class="btn ghost" disabled>Prebaci auto na ovu mrežu</button>
+        <span class="help" style="display:block;margin-top:8px">Auto sačuva unetu mrežu, restartuje se i pređe na nju. Moraš već biti povezan sa autom, a posle prebacivanja i telefon prebaciš na istu mrežu pa nađeš novi IP. Ako nova mreža ne radi, auto se sam vrati na podrazumevanu.</span>
+        <div class="wifiMsg" id="wifiMsg"></div>
+      </div>
+    </details>
+
+    <div class="foot">
+      Drži dugme da se auto kreće, pusti da stane. Auto se sam zaustavi i ako 5 s ne stigne komanda (failsafe u firmware-u).
+    </div>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
