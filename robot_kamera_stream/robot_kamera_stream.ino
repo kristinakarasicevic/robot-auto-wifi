@@ -31,6 +31,7 @@
 
 #include "esp_camera.h"
 #include <WiFi.h>
+#include <ESPmDNS.h>
 #include "esp_http_server.h"
 #include "esp_timer.h"
 #include "img_converters.h"
@@ -210,6 +211,11 @@ void setup(){
 
   if(WiFi.status() == WL_CONNECTED){
     startCameraServer();
+
+    if(MDNS.begin("cam")){                      // ← ove 4 linije su jedino novo
+      MDNS.addService("http", "tcp", 81);
+      Serial.println("Dostupno na: http://cam.local:81/stream");
+    }
     Serial.print("Kamera IP adresa: ");
     Serial.println(WiFi.localIP());   // OVO unosis u app (polje "IP adrese kamere")
     Serial.print("Stream: http://");

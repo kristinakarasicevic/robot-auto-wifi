@@ -211,5 +211,9 @@
   });
   window.addEventListener('blur', stopDrive);
 
+  // podrazumevana imena preko mDNS-a — ne mora da se kuca IP
+  if(!ipIn.value)    ipIn.value    = 'auto.local';
+  if(!camIpIn.value) camIpIn.value = 'cam.local';
+  
   setPill('', 'nije povezan');
 })();
